@@ -6,23 +6,23 @@ const TRIVIA_API_URL = "https://opentdb.com/api.php?";
 
 class TriviaGame extends Component {
     static defaultProps = {
-        questionCount: 10
+        questionCount: 1
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            questions: []
+            question: ''
         }
     }
 
     async componentDidMount() {
-        const newQuestions = await this.getQuestions();
-        console.log(newQuestions);
-        this.setState({ questions: newQuestions });
+        const newQuestion = await this.getQuestion();
+        console.log(newQuestion);
+        this.setState({ question: newQuestion });
     }
 
-    async getQuestions() {
+    async getQuestion() {
         const { questionCount } = this.props;
         const apiURL = `${TRIVIA_API_URL}amount=${questionCount}`;
         console.log(apiURL);
@@ -34,7 +34,7 @@ class TriviaGame extends Component {
             // console.log(`questions:`);
             // console.log(questions);
 
-            return questions;
+            return questions[0];
 
         } catch(err) {
             console.log(err.message);
@@ -43,17 +43,13 @@ class TriviaGame extends Component {
     }
 
     render() {
-        const { questions } = this.state;
+        const { question } = this.state;
 
         return (
             <div>
                 <h1>Trivia!</h1>
                 <div>
-                    {
-                        questions.map(q => (
-                            <Question question={q.question} />
-                        ))
-                    }
+                    <Question question={question} />
                 </div>
             </div>
         )

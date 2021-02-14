@@ -1,0 +1,50 @@
+.Question {
+    width: 30%;
+    height: 70vh;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgb(19, 7, 122);
+}
+
+.question-outline {
+    border: 5px double goldenrod;
+    height: 98%;
+}
+
+.question-header {
+    border-bottom: 3px solid black;
+    background-color: white;
+}
+
+.question-header h1 {
+    text-align: center;
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+.category {
+    background-color: yellow;
+    padding: 0px 20px 0 20px;
+}
+
+.category h3 {
+    margin: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+.choices {
+    padding: 0 20px 20px 20px;
+    background-color: white;
+    height: 69%;
+}
+
+.choices p {
+    margin-top: 0;
+    padding-top: 20px;
+}
+
+.choices li {
+    list-style-type: none;
+    padding: 10px;
+}
