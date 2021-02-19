@@ -32,7 +32,7 @@ class TriviaGame extends Component {
 
             const questions = result.data.results;
             // console.log(`questions:`);
-            console.log(`Q: ${questions[0].question}`);
+            console.log(`A: ${questions[0].correct_answer}`);
 
             return questions[0];
 
