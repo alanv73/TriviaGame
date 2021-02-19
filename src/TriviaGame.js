@@ -12,13 +12,13 @@ class TriviaGame extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            question: ''
+            question: []
         }
     }
 
     async componentDidMount() {
         const newQuestion = await this.getQuestion();
-        console.log(newQuestion);
+        // console.log(newQuestion);
         this.setState({ question: newQuestion });
     }
 
@@ -32,7 +32,7 @@ class TriviaGame extends Component {
 
             const questions = result.data.results;
             // console.log(`questions:`);
-            // console.log(questions);
+            console.log(`Q: ${questions[0].question}`);
 
             return questions[0];
 
@@ -42,17 +42,49 @@ class TriviaGame extends Component {
         }
     }
 
+    shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
     render() {
         const { question } = this.state;
 
-        return (
-            <div>
-                <h1>Trivia!</h1>
-                <div>
-                    <Question question={question} />
+        if(question !== undefined) {
+            return (
+                <div className="TriviaGame">
+                    <div className="triviagame-content">
+                        <Question 
+                            question={question.question}
+                            type={question.type}
+                            category={question.category}
+                            choices={
+                                question.incorrect_answers 
+                                ? this.shuffle([ 
+                                    ...question.incorrect_answers, 
+                                    question.correct_answer 
+                                ]) 
+                                : []
+                            }
+                        />
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

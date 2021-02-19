@@ -1,24 +1,53 @@
-.Question {
-    width: 30%;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@400;500&display=swap');
+
+.TriviaGame {
+    background-color: #b4d787;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.card-background {
+    width: 40%;
     height: 70vh;
     margin: 0 auto;
-    padding: 10px;
+    padding: 1px 0;
     background-color: rgb(19, 7, 122);
+    border-radius: 10px;
 }
 
-.question-outline {
+.card-border {
     border: 5px double goldenrod;
-    height: 98%;
+    border-radius: 10px;
+    height: 88%;
+    margin: 20px;
+    padding: 8px;
 }
 
-.question-header {
-    border-bottom: 3px solid black;
+.card {
+    /* background-color: white; */
+    border-radius: 10px;
+    height: 99%;
+
+}
+
+.card-header {
+    /* border-bottom: 8px solid black; */
     background-color: white;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    padding-bottom: 5px;
+    height: 26%;
 }
 
-.question-header h1 {
+.card-header h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
     text-align: center;
-    margin-top: 0;
+    margin: 0 10px 10px 0;
     padding-top: 10px;
 }
 
@@ -28,23 +57,36 @@
 }
 
 .category h3 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
     margin: 0;
     text-align: center;
     padding: 10px;
 }
 
-.choices {
-    padding: 0 20px 20px 20px;
+.card-content {
+    font-family: 'Raleway', sans-serif;
+    padding: 0 20px 20px 0px;
+    border-radius: 5px;
     background-color: white;
-    height: 69%;
+    height: 67%;
 }
 
-.choices p {
+.card-content p {
     margin-top: 0;
     padding-top: 20px;
+    margin: 0px 20px 20px 20px;
 }
 
 .choices li {
     list-style-type: none;
-    padding: 10px;
+    padding: 10px 10px 10px 30px;
+    cursor: pointer;
+    width: 94%;
+}
+
+.choices li:hover {
+    font-weight: bold;
+    background-color: #eeeeee54;
 }

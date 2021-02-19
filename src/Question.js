@@ -1,27 +1,35 @@
 import React from 'react'
 import './Question.css';
 
+
+
 export default function Question(props) {
-    const { question } = props;
+    const { question, type, category, choices } = props;
 
     function createMarkup(data) {
         return {__html: data};
     }
 
     return (
-        <div className="Question">
-            <div className="question-outline">
-                <header className="question-header">
-                    <h1>Trifle Quest</h1>
-                    <div className="category">
-                        <h3>{question.category}</h3>
+        <div className="card-background">
+            <div className="card-border">
+                <div className="card">
+                    <header className="card-header">
+                        <h1>Trifle Quest</h1>
+                        <div className="category">
+                            <h3>{category}</h3>
+                        </div>
+                    </header>
+                    <div className="card-content">
+                        <p dangerouslySetInnerHTML={createMarkup(question)}/>
+                        <div className="choices">
+                            {
+                                choices.map(c => (
+                                    <li dangerouslySetInnerHTML={createMarkup(c)}/>
+                                ))
+                            }
+                        </div>
                     </div>
-                </header>
-                <div className="choices">
-                    <p dangerouslySetInnerHTML={createMarkup(question.question)}/>
-                        <li>choice1</li>
-                        <li>choice2</li>
-                        <li>choice3</li>
                 </div>
             </div>
         </div>
