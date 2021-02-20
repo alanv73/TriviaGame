@@ -4,7 +4,7 @@ import './Question.css';
 
 
 export default function Question(props) {
-    const { question, type, category, choices } = props;
+    const { question, category, choices, handleClick } = props;
 
     function createMarkup(data) {
         return {__html: data};
@@ -24,8 +24,12 @@ export default function Question(props) {
                         <p dangerouslySetInnerHTML={createMarkup(question)}/>
                         <div className="choices">
                             {
-                                choices.map(c => (
-                                    <li dangerouslySetInnerHTML={createMarkup(c)}/>
+                                choices.map((c,i) => (
+                                    <li 
+                                        key={i}
+                                        dangerouslySetInnerHTML={createMarkup(c)}
+                                        onClick={() => handleClick(c)}
+                                    />
                                 ))
                             }
                         </div>

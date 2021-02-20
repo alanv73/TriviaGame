@@ -12,14 +12,17 @@ class TriviaGame extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            question: []
+            question: '',
+            category: '',
+            choices: [],
+            correctAnswer: ''
         }
+
+        this.checkAnswer = this.checkAnswer.bind(this);
     }
 
     async componentDidMount() {
-        const newQuestion = await this.getQuestion();
-        // console.log(newQuestion);
-        this.setState({ question: newQuestion });
+        await this.getQuestion();
     }
 
     async getQuestion() {
@@ -34,7 +37,22 @@ class TriviaGame extends Component {
             // console.log(`questions:`);
             console.log(`A: ${questions[0].correct_answer}`);
 
-            return questions[0];
+            let question = questions[0].question;
+            let category = questions[0].category;
+            let choices = this.shuffle(
+                [
+                    ...questions[0].incorrect_answers,
+                    questions[0].correct_answer
+                ]
+            );
+            let correctAnswer = questions[0].correct_answer;
+
+            this.setState({ 
+                question,
+                category,
+                choices,
+                correctAnswer
+            });
 
         } catch(err) {
             console.log(err.message);
@@ -61,25 +79,33 @@ class TriviaGame extends Component {
         return array;
     }
 
+    async checkAnswer(answer) {
+        console.log(answer);
+        const { correctAnswer } = this.state;
+
+        if(answer === correctAnswer) {
+            console.log('Correct!');
+            await this.getQuestion()
+        }
+    }
+
     render() {
-        const { question } = this.state;
+        const { 
+            question, 
+            category, 
+            choices, 
+            correctAnswer 
+        } = this.state;
 
         if(question !== undefined) {
             return (
                 <div className="TriviaGame">
                     <div className="triviagame-content">
                         <Question 
-                            question={question.question}
-                            type={question.type}
-                            category={question.category}
-                            choices={
-                                question.incorrect_answers 
-                                ? this.shuffle([ 
-                                    ...question.incorrect_answers, 
-                                    question.correct_answer 
-                                ]) 
-                                : []
-                            }
+                            question={question}
+                            category={category}
+                            choices={choices}
+                            handleClick={this.checkAnswer}
                         />
                     </div>
                 </div>
