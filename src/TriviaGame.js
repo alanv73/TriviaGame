@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import Question from './Question';
+import QuestionCard from './QuestionCard';
 import axios from 'axios';
+import categories from './categories';
+import './TriviaGame.css';
+
 /* https://opentdb.com/api_config.php */
 const TRIVIA_API_URL = "https://opentdb.com/api.php?";
+
+const difficulty = {
+    easy: 'easy',
+    medium: 'medium',
+    hard: 'hard'
+}
 
 class TriviaGame extends Component {
     static defaultProps = {
@@ -13,12 +22,21 @@ class TriviaGame extends Component {
         super(props);
         this.state = {
             question: '',
-            category: '',
+            categoryName: '',
+            categoryNumber: 0,
+            categoryColor: 'white',
+            difficulty: 'hard',
             choices: [],
-            correctAnswer: ''
+            correctAnswer: '',
+            score: 0,
+            message: '',
+            showBack: false,
+            categories: window.localStorage.getItem("categories") 
+                || categories.map(c => ({...c, selected: true}))
         }
 
         this.checkAnswer = this.checkAnswer.bind(this);
+        this.nextQuestion = this.nextQuestion.bind(this);
     }
 
     async componentDidMount() {
@@ -27,18 +45,26 @@ class TriviaGame extends Component {
 
     async getQuestion() {
         const { questionCount } = this.props;
-        const apiURL = `${TRIVIA_API_URL}amount=${questionCount}`;
+        const { difficulty, categories } = this.state;
+        const randNum = Math.floor(Math.random() * categories.filter(c => c.selected).length);
+        const randCategory = categories.filter(c => c.selected)[randNum];
+        console.log(randCategory);
+
+        const apiOptions = `amount=${questionCount}` 
+            + `&difficulty=${difficulty}` 
+            + `&category=${randCategory.id}`;
+        const apiURL = `${TRIVIA_API_URL}${apiOptions}`;
         console.log(apiURL);
 
         try{
             const result = await axios.get(apiURL);
 
             const questions = result.data.results;
-            // console.log(`questions:`);
             console.log(`A: ${questions[0].correct_answer}`);
 
             let question = questions[0].question;
-            let category = questions[0].category;
+            let categoryName = questions[0].category;
+            let categoryColor = categories.find(c => c.name === categoryName).color;
             let choices = this.shuffle(
                 [
                     ...questions[0].incorrect_answers,
@@ -49,7 +75,8 @@ class TriviaGame extends Component {
 
             this.setState({ 
                 question,
-                category,
+                categoryName,
+                categoryColor,
                 choices,
                 correctAnswer
             });
@@ -85,27 +112,56 @@ class TriviaGame extends Component {
 
         if(answer === correctAnswer) {
             console.log('Correct!');
-            await this.getQuestion()
+            this.setState(st => ({
+                score: st.score + 1,
+                message: 'Correct!',
+                showBack: true
+            }));
+        } else {
+            this.setState(st => ({
+                message: 'Incorrect 😢',
+                showBack: true
+            }));
         }
+
+        // await this.getQuestion()
+    }
+
+    async nextQuestion() {
+        this.setState(st => ({
+            showBack: false,
+        }));
+
+        await this.getQuestion();
     }
 
     render() {
         const { 
             question, 
-            category, 
-            choices, 
-            correctAnswer 
+            categoryName,
+            categoryColor, 
+            choices,
+            score,
+            message,
+            showBack
         } = this.state;
 
         if(question !== undefined) {
             return (
                 <div className="TriviaGame">
+                    <div className="triviagame-score">
+                        <h2 className="score">Score: {score}</h2>
+                    </div>
                     <div className="triviagame-content">
-                        <Question 
+                        <QuestionCard 
                             question={question}
-                            category={category}
+                            category={categoryName}
+                            categoryColor={categoryColor}
                             choices={choices}
                             handleClick={this.checkAnswer}
+                            message={message}
+                            nextClick={this.nextQuestion}
+                            showBack={showBack}
                         />
                     </div>
                 </div>
