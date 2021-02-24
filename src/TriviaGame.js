@@ -7,7 +7,7 @@ import './TriviaGame.css';
 /* https://opentdb.com/api_config.php */
 const TRIVIA_API_URL = "https://opentdb.com/api.php?";
 
-const difficulty = {
+const DIFFICULTY = {
     easy: 'easy',
     medium: 'medium',
     hard: 'hard'
@@ -146,7 +146,7 @@ class TriviaGame extends Component {
             showBack
         } = this.state;
 
-        if(question !== undefined) {
+        if(question !== undefined)
             return (
                 <div className="TriviaGame">
                     <div className="triviagame-score">
@@ -165,8 +165,8 @@ class TriviaGame extends Component {
                         />
                     </div>
                 </div>
-            )
-        }
+            );
+            return null;
     }
 }
 

@@ -3,20 +3,20 @@ import { withStyles } from '@material-ui/styles';
 import styles from './QuestionCardStyles';
 import pie from './pie.svg';
 
-function QuestionCard(props) {
-    const { 
-        question, 
-        category, 
-        categoryColor, 
-        choices, 
-        handleClick, 
-        classes,
-        message,
-        nextClick,
-        showBack
-    } = props;
+function QuestionCard({ 
+    questionText, 
+    category, 
+    categoryColor, 
+    choices, 
+    handleClick, 
+    classes,
+    isCorrect,
+    clickBack,
+    showBack,
+    correctAnswer
+}) {
 
-    function createMarkup(data) {
+    const createMarkup = data => {
         return {__html: data};
     }
 
@@ -38,7 +38,7 @@ function QuestionCard(props) {
                             </div>
                         </header>
                         <div className={classes.cardContent}>
-                            <p dangerouslySetInnerHTML={createMarkup(question)}/>
+                            <p dangerouslySetInnerHTML={createMarkup(questionText)}/>
                             <div className={classes.choices}>
                                 {
                                     choices.map((c,i) => (
@@ -60,12 +60,19 @@ function QuestionCard(props) {
             >
                 <div 
                     className={classes.cardBorder}
-                    onClick={nextClick}
+                    onClick={clickBack}
                 >
                     <div className={classes.backDesign}>
-                        <h2>Trifle Quest</h2>
-                        <img src={pie} alt="pie"/>
-                        <h3 className={classes.message}>{message}</h3>
+                        <h1 className={classes.backItems}>Trifle Quest</h1>
+                        <img className={classes.backItems} src={pie} alt="pie"/>
+                        {
+                            isCorrect
+                            ? <h3 className={classes.message}>Correct</h3>
+                            : <div className={classes.incorrect}>
+                                <h2>The answer was:</h2>
+                                <h4>{correctAnswer}</h4>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

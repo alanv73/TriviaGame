@@ -47,23 +47,45 @@ export default {
         overflow: 'hidden'
     },
     backDesign: {
+        cursor: 'pointer',
         color: 'goldenrod',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
         height: '100%',
-        "& h2": {
-            fontFamily: '"Great Vibes", cursive',
-            fontSize: '3.5em',
+        "& h1": {
+            // marginTop: '2em',
+            fontSize: '3.5em'
         },
         "& img": {
             // paddingBottom: '2em',
         }
     },
+    backItems: {
+        alignSelf: 'center',
+        fontFamily: '"Great Vibes", cursive',
+    },
     message: {
         fontFamily: '"Great Vibes", cursive',
+        textAlign: 'center',
         fontSize: '3em'
+    },
+    incorrect: {
+        fontFamily: '"Great Vibes", cursive',
+        "& h2": {
+            marginLeft: '1em',
+            marginBottom: '0',
+            alignItems: 'flex-start',
+            fontSize: '1.5em'
+        },
+        "& h4": {
+            fontFamily: '"Raleway", sans-serif',
+            marginTop: '0',
+            marginRight: '0.5em',
+            textAlign: 'center',
+            fontSize: '2em'
+        }
     },
     card: {
         borderRadius: '10px',
