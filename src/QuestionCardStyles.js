@@ -1,5 +1,9 @@
 import sizes from './sizes';
 export default {
+    gameContent: {
+        width: '80%',
+        paddingBottom: '50px',
+    },
     cardBoundary: {
         width: '40%',
         margin: '0px auto',
@@ -50,16 +54,18 @@ export default {
         cursor: 'pointer',
         color: 'goldenrod',
         display: 'flex',
+        padding: '1em',
         flexDirection: 'column',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         // alignItems: 'center',
         height: '100%',
         "& h1": {
-            // marginTop: '2em',
+            marginTop: '0.5em',
+            marginBottom: '0.3em',
             fontSize: '3.5em'
         },
         "& img": {
-            // paddingBottom: '2em',
+            width: '50%'
         }
     },
     backItems: {
@@ -73,16 +79,18 @@ export default {
     },
     incorrect: {
         fontFamily: '"Great Vibes", cursive',
+        margin: '1em 0',
         "& h2": {
-            marginLeft: '1em',
+            marginTop: '0',
             marginBottom: '0',
+            marginLeft: '0.5em',
             alignItems: 'flex-start',
             fontSize: '1.5em'
         },
         "& h4": {
             fontFamily: '"Raleway", sans-serif',
-            marginTop: '0',
-            marginRight: '0.5em',
+            marginBottom: 0,
+            marginTop: 0,
             textAlign: 'center',
             fontSize: '2em'
         }
