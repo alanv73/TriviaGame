@@ -77,5 +77,9 @@ const toggleCategory = (categories, categoryID) => {
     return newCategories;
 }
 
+const createMarkup = data => {
+    return {__html: data};
+}
 
-export { shuffle, getTriviaQuestion, getRandomCategory, toggleCategory };
+
+export { shuffle, getTriviaQuestion, getRandomCategory, toggleCategory, createMarkup };
